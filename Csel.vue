@@ -124,8 +124,9 @@ import prj from '@/proone.json'
         flex-direction: column;
         background-color:#0095df;
         color:#ebecee;
-        /*margin: 0 auto;*/
-        display:inline-block;
+      display: flex !important;
+        align-items: center;
+        justify-content: center;
         padding-right: 0rem;
         padding-left: 0rem;
             
