@@ -1,12 +1,49 @@
 <template>
-  <div class="w3-container">
   
+  
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Portfolio</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Home
+            <span class="visually-hidden">(current)</span>
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+    
+        <li class="nav-link dropdownII">
+            <a class="dropbtnII">Translate Page</a>
+            <div class="dropdownII-content">
+                <a class="text-white" href="#">Link 1</a>
+                <a class="text-white" href="#">Link 2</a>
+                <a class="text-white" href="#">Link 3</a>
+                      <a class="nav-link" href="#">English</a>
+            <a class="nav-link" href="#">Other Idioms</a>
+            <a class="nav-link" href="#">Show Original</a>
+            </div>
+          
+        </li>  
+      </ul>
+      
+    </div>
+  </div>
+</nav>
 
+  <div>
+  
  <div class="centerblock">
   <table border="0"><tr><td> <button class="sideblock" @click="moveItt('left')">Left Side</button></td>
   <span v-if="actOne">
   <span v-for="item in mybase" :key="item.idd">
-    <td v-if="item.visible==true"><button class="w3-button retblock" @click="showItt(item)">{{ item.name }}</button></td>
+    <td v-if="item.visible==true"><button class="btn retblock" @click="showItt(item)">{{ item.name }}</button></td>
    </span>
    </span>
    <td><button class="sideblock" @click="moveItt('right')">Right Side</button></td>
@@ -37,7 +74,8 @@ import prj from '@/proone.json'
         return {
             itt:{},
             isActive: false,
-            actOne:true
+            actOne:true, 
+            actTwo:false
             
         }  
     },
@@ -103,33 +141,38 @@ import prj from '@/proone.json'
 </script>
 
 <style scoped>
+    @import '@/assets/spacelab.css';
     .centerblock{
     
         width: 50%;
         border: 1px solid;
         margin: auto;
-        flex-direction: column;
+        /*display:table;*/
+       
     }
     .pdd { 
-        padding-top:0rem;
-        padding-bottom: 0rem;
-        padding-right: 2rem;
-        padding-left: 0rem;
-        float:left;
+        float:center;
         width:13.33333%
     }
     .retblock{
         height: 20rem; 
         width: 10rem;
-        flex-direction: column;
+        flex-direction: row;
         background-color:#0095df;
         color:#ebecee;
-      display: flex !important;
+        /*display: inline-flex;table-cell
+        position: absolute;
+        */
+       display: flex !important;
         align-items: center;
         justify-content: center;
         padding-right: 0rem;
         padding-left: 0rem;
             
+    }
+    .retbtn{
+        background-color:#0095df;
+        color:#ebecee;
     }
     .sideblock{
         height:17rem;
@@ -143,10 +186,59 @@ import prj from '@/proone.json'
     .liner{
         display: inline;
     }
-    .fontwhite{
+    .menublock{
         color:#ebecee;
+        background-color:#5077A1;
+         width: 20%;
+        border: 1px solid;
+        z-index:1055;
     }
 
+    .dropbtnII {
+        color: white;
+        border: none;
+        cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdownII {
+  position: relative;
+  display: inline-block;
+  text-decoration:none;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdownII-content {
+  display: none;
+  position: absolute;
+  background-color: #4C749F;
+  color:#ebecee;
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdownII-content a {
+  
+  padding: 10px 13px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover 
+.dropdown-content a:hover {background-color: #68dff2}*/
+
+/* Show the dropdown menu on hover */
+.dropdownII:hover .dropdownII-content {
+  display: block;
+  background-color: #4C749F;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdownII:hover .dropbtnII {
+  background-color: #4C749F;
+}
+    
+    
     .centralize {
     margin: auto;
     width: 150%;
