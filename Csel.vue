@@ -1,7 +1,8 @@
 <template>
   
-  
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+  <nav class="navbar navbar-expand-md py-md-0 navbar-dark bg-dark">
+<!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Portfolio</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,12 +23,9 @@
         <li class="nav-link dropdownII">
             <a class="dropbtnII">Translate Page</a>
             <div class="dropdownII-content">
-                <a class="text-white" href="#">Link 1</a>
-                <a class="text-white" href="#">Link 2</a>
-                <a class="text-white" href="#">Link 3</a>
-                      <a class="nav-link" href="#">English</a>
+            <a class="nav-link" href="#" @click="changeOne('en')">English</a>
             <a class="nav-link" href="#">Other Idioms</a>
-            <a class="nav-link" href="#">Show Original</a>
+            <a class="nav-link" href="#" @click="changeOne('br')">Show Original</a>
             </div>
           
         </li>  
@@ -37,20 +35,25 @@
   </div>
 </nav>
 
-  <div>
-  
+
+<div class="container-fluid  mt-4">  
+<div class="container bg-white col-md-12 ">
+
+<AvalComp msg="Obrigado por comparecer a este portfólio, logo abaixo encontra-se a lista de projetos realizados, para acessá-los basta navegar por meio dos botões anteior e posterior, caso queira a lista completa dos projetos acesse" lnk="#t1" />
+
+<!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
  <div class="centerblock">
-  <table border="0"><tr><td> <button class="sideblock" @click="moveItt('left')">Left Side</button></td>
+  <table border="0"><tr><td> <button class="btn sideblock" @click="moveItt('left')">&#8882;</button></td>
   <span v-if="actOne">
   <span v-for="item in mybase" :key="item.idd">
     <td v-if="item.visible==true"><button class="btn retblock" @click="showItt(item)">{{ item.name }}</button></td>
    </span>
    </span>
-   <td><button class="sideblock" @click="moveItt('right')">Right Side</button></td>
+   <td><button class="btn sideblock" @click="moveItt('right')">&#8883;</button></td>
   </tr></table>
 </div> 
    
-   
+<!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->   
   <br>
   <div v-if="isActive">
     Name: {{itt.name}}<br>
@@ -58,30 +61,65 @@
     Dev: {{itt.development}} <br>
   </div>
   <br>
- 
-  
- 
-  
+<!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
+  <div class="container col-md-9 ">
+  <table class="table table table-striped">
+  <tr>
+      <th scope="col">{{conff.a}}</th>
+      <th scope="col">{{conff.b}}</th>
+  </tr>
+  <tr v-for="mytt in realPro" :key="mytt.idd">
+    <td>{{ mytt.name }}</td>
+    <td>{{ mytt.description }}</td>
+   </tr>
+  </table>
   </div>
+ 
+</div>  
+</div> 
+  
+  
 </template>
 <script>
-import prj from '@/proone.json'
+ /* eslint-disable */
+import prj from '@/proone.json';
+import prjII from '@/proone.json';
+
+
+
+import AvalComp from '@/components/Aval.vue';
+import configvar from '@/confs.json';
+
   export default {
-  /* eslint-disable */
+ 
    name: 'CselComp',
  //  props: { items: {} },
+    components: {
+        AvalComp
+    },
     data(){
         return {
             itt:{},
+            projes:prj,
+            
+            proActive:1,
             isActive: false,
             actOne:true, 
-            actTwo:false
+            actTwo:false,
+            conff:configvar[1]
             
         }  
     },
     computed:{     
         mybase(){
-            return prj;
+           // return prj;
+           return this.projes;
+        },
+        realPro(){
+            //console.log("------");
+            //console.log(prj);
+             if (this.proActive==1) {  return prj; }
+            else{  return prjII; } 
         }
     },
     methods:{
@@ -91,7 +129,9 @@ import prj from '@/proone.json'
        // console.log(this.itt);
     },
     moveItt(tmov){
-        let projs=prj;
+      if (this.proActive==1) { this.projes=prj; }
+      else{ this.projes=prjII; } 
+        let projs=this.projes;
         let signal=false;
         let idex=-1;
         this.actOne=false;
@@ -121,19 +161,31 @@ import prj from '@/proone.json'
                 
          });
         });
-        prj=projs;
+        this.projes=projs;
         this.actOne=true;
-        //console.log(this.mybase);
+        //console.log(this.mybase[0].name);
         //this.mybase;
     
+    },
+    changeOne(lg){
+        
+        if (lg=='en'){
+            this.proActive=2;
+            this.moveItt('left');
+            this.conff=configvar[0];
+        }
+         if (lg=='br'){
+            this.proActive=1;
+            this.moveItt('left');
+            this.conff=configvar[1];
+        }
+       
     }
 
   },
   mounted(){
-  
-   //this.mybase();
-   //console.log("Csel");
-  // console.log(this.mybase);
+    //this.prlist=prjOrig;
+    //this.prlistII=prjIIOrig;
   }
 
 }
@@ -155,7 +207,7 @@ import prj from '@/proone.json'
         width:13.33333%
     }
     .retblock{
-        height: 20rem; 
+        height: 13rem; 
         width: 10rem;
         flex-direction: row;
         background-color:#0095df;
@@ -175,12 +227,11 @@ import prj from '@/proone.json'
         color:#ebecee;
     }
     .sideblock{
-        height:17rem;
+        height:10rem;
         width: 4rem;
         background-color:#0095df;
         color:#ebecee;
-        /*margin: 0 auto;*/
-        /*display:inline-block;*/
+       font-size:30px;
       
     }
     .liner{
@@ -195,7 +246,7 @@ import prj from '@/proone.json'
     }
 
     .dropbtnII {
-        color: white;
+        
         border: none;
         cursor: pointer;
 }
@@ -211,14 +262,15 @@ import prj from '@/proone.json'
 .dropdownII-content {
   display: none;
   position: absolute;
-  background-color: #4C749F;
-  color:#ebecee;
+ 
+  
   z-index: 1;
 }
 
 /* Links inside the dropdown */
 .dropdownII-content a {
-  
+  background-color:#EFEFEF;
+  color:blue;
   padding: 10px 13px;
   text-decoration: none;
   display: block;
@@ -230,12 +282,12 @@ import prj from '@/proone.json'
 /* Show the dropdown menu on hover */
 .dropdownII:hover .dropdownII-content {
   display: block;
-  background-color: #4C749F;
+  
 }
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdownII:hover .dropbtnII {
-  background-color: #4C749F;
+  
 }
     
     
