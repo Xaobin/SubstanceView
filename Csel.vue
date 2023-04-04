@@ -1,49 +1,33 @@
 <template>
-  
-
-  <nav class="navbar navbar-expand-md py-md-0 navbar-dark bg-dark">
-<!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Portfolio</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarColor01">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Home
-            <span class="visually-hidden">(current)</span>
-          </a>
-        </li>
-        
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
-    
-        <li class="nav-link dropdownII">
-            <a class="dropbtnII">Translate Page</a>
-            <div class="dropdownII-content">
-            <a class="nav-link" href="#" @click="changeOne('en')">English</a>
-            <a class="nav-link" href="#">Other Idioms</a>
-            <a class="nav-link" href="#" @click="changeOne('br')">Show Original</a>
+ <!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
+<p class="bg-dark p-1">
+<span class="text-white navbar-brand">{{conff.f}}</span><span>&nbsp;&nbsp;&nbsp;</span>
+<span class="text-white">{{conff.g}}</span><span>&nbsp;&nbsp;</span>
+ <span class=""><a class="dropbtnII" @click="showTra=!showTra">Translate </a>
+            <div class="dropdownII-content" v-show="showTra" @mouseout="showMenn()">
+            <a class="nav-link"  @click="changeOne('en')" @mousein="showTra=true">English</a>
+            <a class="nav-link" @mousein="showTra=true">Other Idioms</a>
+            <a class="nav-link"  @click="changeOne('br')">Show Original</a>
             </div>
-          
-        </li>  
-      </ul>
-      
-    </div>
-  </div>
-</nav>
+            <div class="dropdownIII-content" >
+            <a class="nav-link"  @click="changeOne('en')">English</a>
+            <a class="nav-link">Other Idioms</a>
+            <a class="nav-link"  @click="changeOne('br')">Show Original</a>
+            </div>
+  </span>          
+</p>
 
+<!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
+ 
 
 <div class="container-fluid  mt-4">  
 <div class="container bg-white col-md-12 ">
-
-<AvalComp msg="Obrigado por comparecer a este portfólio, logo abaixo encontra-se a lista de projetos realizados, para acessá-los basta navegar por meio dos botões anteior e posterior, caso queira a lista completa dos projetos acesse" lnk="#t1" />
+<!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
+<AvalComp :msg="conff.d" :lnk="conff.e" />
 
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
- <div class="centerblock">
-  <table border="0"><tr><td> <button class="btn sideblock" @click="moveItt('left')">&#8882;</button></td>
+ <div class="container d-flex justify-content-center">
+  <table border="0" class="table-primary"><tr><td> <button class="btn sideblock" @click="moveItt('left')">&#8882;</button></td>
   <span v-if="actOne">
   <span v-for="item in mybase" :key="item.idd">
     <td v-if="item.visible==true"><button class="btn retblock" @click="showItt(item)">{{ item.name }}</button></td>
@@ -55,23 +39,30 @@
    
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->   
   <br>
-  <div v-if="isActive">
-    Name: {{itt.name}}<br>
-   Descript:  {{itt.description}}<br>
-    Dev: {{itt.development}} <br>
+  <div v-if="isActive" class="container d-flex col-md-8">
+  <table border="1" class="table-primary"><tr><td>
+    {{conff.a}}:  {{itt.name}}<br>
+   {{conff.b}}:   {{itt.description}}<br>
+    {{conff.c}}:  {{itt.development}} <br>
+    </td></tr></table>
   </div>
   <br>
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
-  <div class="container col-md-9 ">
-  <table class="table table table-striped">
+<div id="tabela"></div><div id="table"></div>
+  <div class="container col-md-9">
+  <table class="table-primary" border="1">
+  <thead>
   <tr>
       <th scope="col">{{conff.a}}</th>
       <th scope="col">{{conff.b}}</th>
   </tr>
+  </thead>
+  <tbody>
   <tr v-for="mytt in realPro" :key="mytt.idd">
     <td>{{ mytt.name }}</td>
     <td>{{ mytt.description }}</td>
    </tr>
+   </tbody>
   </table>
   </div>
  
@@ -83,7 +74,7 @@
 <script>
  /* eslint-disable */
 import prj from '@/proone.json';
-import prjII from '@/proone.json';
+import prjII from '@/proone2.json';
 
 
 
@@ -101,7 +92,8 @@ import configvar from '@/confs.json';
         return {
             itt:{},
             projes:prj,
-            
+            showTra:false,
+            showTray:false,
             proActive:1,
             isActive: false,
             actOne:true, 
@@ -123,6 +115,12 @@ import configvar from '@/confs.json';
         }
     },
     methods:{
+    noShowm(){
+        if (this.showTra==false){this.showTra=true;} else {this.showTra=false;}
+    },
+    showMenn(){
+        setTimeout(this.noShowm, 0);
+    },
      showItt(item){
         this.itt=item;
         this.isActive=true;
@@ -170,11 +168,13 @@ import configvar from '@/confs.json';
     changeOne(lg){
         
         if (lg=='en'){
+            this.showTra=!this.showTra;
             this.proActive=2;
             this.moveItt('left');
             this.conff=configvar[0];
         }
          if (lg=='br'){
+            this.showTra=!this.showTra;
             this.proActive=1;
             this.moveItt('left');
             this.conff=configvar[1];
@@ -207,8 +207,8 @@ import configvar from '@/confs.json';
         width:13.33333%
     }
     .retblock{
-        height: 13rem; 
-        width: 10rem;
+        height: 9rem; 
+        width: 7rem;
         flex-direction: row;
         background-color:#0095df;
         color:#ebecee;
@@ -227,8 +227,8 @@ import configvar from '@/confs.json';
         color:#ebecee;
     }
     .sideblock{
-        height:10rem;
-        width: 4rem;
+        height:5rem;
+        width: 3rem;
         background-color:#0095df;
         color:#ebecee;
        font-size:30px;
@@ -260,11 +260,21 @@ import configvar from '@/confs.json';
 
 /* Dropdown Content (Hidden by Default) */
 .dropdownII-content {
+  display: inline;
+  position: absolute;
+  z-index: 1;
+}
+.dropdownIII-content {
   display: none;
   position: absolute;
- 
-  
   z-index: 1;
+}
+.dropdownIII-content a {
+  background-color:#EFEFEF;
+  color:blue;
+  padding: 10px 13px;
+  text-decoration: underline;
+  display: block;
 }
 
 /* Links inside the dropdown */
@@ -280,9 +290,8 @@ import configvar from '@/confs.json';
 .dropdown-content a:hover {background-color: #68dff2}*/
 
 /* Show the dropdown menu on hover */
-.dropdownII:hover .dropdownII-content {
+.dropdownII:hover .dropdownIII-content {
   display: block;
-  
 }
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
