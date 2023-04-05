@@ -3,7 +3,7 @@
 <p class="bg-dark p-1">
 <span class="text-white navbar-brand">{{conff.f}}</span><span>&nbsp;&nbsp;&nbsp;</span>
 <span class="text-white">{{conff.g}}</span><span>&nbsp;&nbsp;</span>
- <span class=""><a class="dropbtnII" @click="showTra=!showTra" v-show="isMob==true">Translate </a>
+ <span v-if="isMob==true"><a class="dropbtnII" @click="showTra=!showTra">Translate </a>
             <div class="dropdownII-content" v-if="showTra">
             <a class="nav-link"  @click="changeOne('en')" >English</a>
             <a class="nav-link" @click="googleTranslateElementInit()">Other Idioms</a>
@@ -27,7 +27,8 @@
 <div class="container-fluid  mt-4">  
 <div class="container bg-white col-md-12 ">
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
-<AvalComp :msg="conff.d" :lnk="conff.e" />
+
+<AvalComp :msg="conff.d" :lnk="conff.e" :per="conff.h" />
 
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
  <div class="container d-flex justify-content-center">
@@ -154,15 +155,23 @@ import configvar from '@/confs.json';
         let projs=this.projes;
         let signal=false;
         let idex=-1;
+        let idMobRight=2;
+        let idMobLeft=1;
+        let idMobLeft2=1;
+        if (this.isMob==true){
+            idMobRight=1;
+            idMobLeft=0;
+            idMobLeft2=1;
+        }
         this.actOne=false;
         projs.forEach(jobj => {
             Object.entries(jobj).forEach(([khey, vall]) => {
                 if (khey=="idd"){ idex++; }
                 if (tmov=="right"){
                 if ((khey=="visible")&&(vall==true)&&(signal==false)){
-                 if ((projs[idex].visible!=undefined)&&(projs[idex+2]!=undefined)){
+                 if ((projs[idex].visible!=undefined)&&(projs[idex+idMobRight]!=undefined)){
                      projs[idex].visible=false;
-                     projs[idex+2].visible=true;   
+                     projs[idex+idMobRight].visible=true;   
                      signal=true;
                  }
                  
@@ -170,9 +179,9 @@ import configvar from '@/confs.json';
                 }
                 if (tmov=="left"){
                  if ((khey=="visible")&&(vall==true)&&(signal==false)){
-                 if ((projs[idex+1]!=undefined)&&(projs[idex-1]!=undefined)){ 
-                     projs[idex-1].visible=true;
-                      projs[idex+1].visible=false;
+                 if ((projs[idex+idMobLeft]!=undefined)&&(projs[idex-idMobLeft2]!=undefined)){ 
+                     projs[idex-idMobLeft2].visible=true;
+                      projs[idex+idMobLeft].visible=false;
                       signal=true;   
                       
                 }
@@ -194,7 +203,7 @@ import configvar from '@/confs.json';
             this.proActive=2;
             this.moveItt('left');
             this.conff=configvar[0];
-                
+             console.log("En.......");
                 
         }
          if (lg=='br'){
@@ -211,8 +220,11 @@ import configvar from '@/confs.json';
 
     if (this.detectMob()==false){
         this.isMob=false;
+        
     } else{
         this.isMob=true;
+        this.projes[1].visible=false;
+        
     }
     this.showItt(this.projes[0]);
     //console.log(this.isMob);
@@ -348,6 +360,7 @@ import configvar from '@/confs.json';
   display: block;
   
 }
+
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdownII:hover .dropbtnII {
