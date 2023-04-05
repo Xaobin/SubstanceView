@@ -3,22 +3,26 @@
 <p class="bg-dark p-1">
 <span class="text-white navbar-brand">{{conff.f}}</span><span>&nbsp;&nbsp;&nbsp;</span>
 <span class="text-white">{{conff.g}}</span><span>&nbsp;&nbsp;</span>
- <span class=""><a class="dropbtnII" @click="showTra=!showTra">Translate </a>
-            <div class="dropdownII-content" v-show="showTra" @mouseout="showMenn()">
-            <a class="nav-link"  @click="changeOne('en')" @mousein="showTra=true">English</a>
-            <a class="nav-link" @mousein="showTra=true">Other Idioms</a>
+ <span class=""><a class="dropbtnII" @click="showTra=!showTra" v-show="isMob==true">Translate </a>
+            <div class="dropdownII-content" v-if="showTra">
+            <a class="nav-link"  @click="changeOne('en')" >English</a>
+            <a class="nav-link" @click="googleTranslateElementInit()">Other Idioms</a>
             <a class="nav-link"  @click="changeOne('br')">Show Original</a>
             </div>
-            <div class="dropdownIII-content" >
-            <a class="nav-link"  @click="changeOne('en')">English</a>
-            <a class="nav-link">Other Idioms</a>
-            <a class="nav-link"  @click="changeOne('br')">Show Original</a>
+  </span>   
+        <span class="dropdownIII" v-show="isMob==false">
+            <a class="dropbtnIII">Translate</a>
+            <div class="dropdownIII-content">
+            <a @click="changeOne('en')">English</a>
+            <a @click="googleTranslateElementInit()">Other Idioms</a>
+            <a  @click="changeOne('br')">Show Original</a>
             </div>
-  </span>          
+          
+        </span> 
 </p>
 
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
- 
+ <span v-if="traCP"><div id="gootrael"></div></span>
 
 <div class="container-fluid  mt-4">  
 <div class="container bg-white col-md-12 ">
@@ -79,6 +83,7 @@ import prjII from '@/proone2.json';
 
 
 import AvalComp from '@/components/Aval.vue';
+
 import configvar from '@/confs.json';
 
   export default {
@@ -96,8 +101,10 @@ import configvar from '@/confs.json';
             showTray:false,
             proActive:1,
             isActive: false,
+            isMob:false,
             actOne:true, 
             actTwo:false,
+            traCP:false,
             conff:configvar[1]
             
         }  
@@ -108,6 +115,7 @@ import configvar from '@/confs.json';
            return this.projes;
         },
         realPro(){
+            //this.moveItt('left');
             //console.log("------");
             //console.log(prj);
              if (this.proActive==1) {  return prj; }
@@ -115,12 +123,26 @@ import configvar from '@/confs.json';
         }
     },
     methods:{
-    noShowm(){
-        if (this.showTra==false){this.showTra=true;} else {this.showTra=false;}
+    googleTranslateElementInit(){
+    this.traCP=!this.traCP;
+    new google.translate.TranslateElement({pageLanguage: 'en'}, 'gootrael');
     },
-    showMenn(){
-        setTimeout(this.noShowm, 0);
-    },
+    detectMob() {
+            const toMatch = [
+                /Android/i,
+                /webOS/i,
+                /iPhone/i,
+                /iPad/i,
+                /iPod/i,
+                /BlackBerry/i,
+                /Windows Phone/i
+            ];
+            
+            return toMatch.some((toMatchItem) => {
+                return navigator.userAgent.match(toMatchItem);
+            });
+        },
+   
      showItt(item){
         this.itt=item;
         this.isActive=true;
@@ -172,6 +194,8 @@ import configvar from '@/confs.json';
             this.proActive=2;
             this.moveItt('left');
             this.conff=configvar[0];
+                
+                
         }
          if (lg=='br'){
             this.showTra=!this.showTra;
@@ -184,8 +208,14 @@ import configvar from '@/confs.json';
 
   },
   mounted(){
-    //this.prlist=prjOrig;
-    //this.prlistII=prjIIOrig;
+
+    if (this.detectMob()==false){
+        this.isMob=false;
+    } else{
+        this.isMob=true;
+    }
+    this.showItt(this.projes[0]);
+    //console.log(this.isMob);
   }
 
 }
@@ -244,54 +274,79 @@ import configvar from '@/confs.json';
         border: 1px solid;
         z-index:1055;
     }
-
-    .dropbtnII {
-        
-        border: none;
-        cursor: pointer;
+/* - - - - - - - - - - - - - - - - - - - */
+/* - - - - - - - - - - - - - - - - - - - */
+/* - - - - - - - - - - - - - - - - - - - */
+/* - - - - - - - - - - - - - - - - - - - */
+.dropbtnII {
+    border: none;
+    cursor: pointer;
+    text-decoration:none;
+    color:#beeaf7;
 }
-
-/* The container <div> - needed to position the dropdown content */
 .dropdownII {
   position: relative;
   display: inline-block;
   text-decoration:none;
 }
-
-/* Dropdown Content (Hidden by Default) */
-.dropdownII-content {
-  display: inline;
-  position: absolute;
-  z-index: 1;
+/* - - - - - - - - - - - - - - - - - - - */
+.dropbtnIII {
+    border: none;
+    cursor: pointer;
+    text-decoration:none;
+    color:#beeaf7;
 }
+.dropdownIII {
+  position: relative;
+  display: inline-block;
+  text-decoration:none;
+}
+
+
+/* - - - - - - - - - - - - - - - - - - - */
 .dropdownIII-content {
+    cursor: pointer;
   display: none;
   position: absolute;
   z-index: 1;
 }
 .dropdownIII-content a {
   background-color:#EFEFEF;
-  color:blue;
+  color:#064f9e;
   padding: 10px 13px;
-  text-decoration: underline;
+  text-decoration: none;
   display: block;
 }
-
+.dropdownIII-content a:hover{
+    background-color:#15f2e7;
+    color:#064f9e;
+}
+/* - - - - - - - - - - - - - - - - - - - */
+/* Dropdown Content (Hidden by Default) */
+.dropdownII-content {
+  display: inline;
+  position: absolute;
+  z-index: 1;
+}
 /* Links inside the dropdown */
 .dropdownII-content a {
   background-color:#EFEFEF;
-  color:blue;
+  color:#064f9e;
   padding: 10px 13px;
   text-decoration: none;
   display: block;
 }
 
-/* Change color of dropdown links on hover 
+/* Change color of dropdown links on hover  
 .dropdown-content a:hover {background-color: #68dff2}*/
 
 /* Show the dropdown menu on hover */
-.dropdownII:hover .dropdownIII-content {
+.dropdownII:hover .dropdownII-content {
   display: block;
+}
+.dropdownIII:hover .dropdownIII-content {
+  display: block;
+  
 }
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
