@@ -46,9 +46,10 @@
   <br>
   <div v-if="isActive" class="container d-flex col-md-8">
   <table border="1" class="table-primary"><tr><td>
-    {{conff.a}}:  {{itt.name}}<br>
-   {{conff.b}}:   {{itt.description}}<br>
-    {{conff.c}}:  {{itt.development}} <br>
+  <span class="d-flex justify-content-start" border="1">#{{itt.idd}}</span>
+    <strong>{{conff.a}}</strong>:  {{itt.name}}<br>
+   <strong>{{conff.b}}</strong>:   {{itt.description}}<br>
+    <strong>{{conff.c}}</strong>:  {{itt.development}} <br>
     </td></tr></table>
   </div>
   <br>
@@ -203,7 +204,7 @@ import configvar from '@/confs.json';
             this.proActive=2;
             this.moveItt('left');
             this.conff=configvar[0];
-             console.log("En.......");
+             //console.log("En.......");
                 
         }
          if (lg=='br'){
