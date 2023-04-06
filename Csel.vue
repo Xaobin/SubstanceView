@@ -46,12 +46,25 @@
   <br>
   <div v-if="isActive" class="container d-flex col-md-8">
   <table border="1" class="table-primary"><tr><td>
-  <span class="d-flex justify-content-start" border="1">#{{itt.idd}}</span>
+  <span class="d-flex justify-content-start" border="1"><strong>#{{itt.idd}}</strong></span>
     <strong>{{conff.a}}</strong>:  {{itt.name}}<br>
    <strong>{{conff.b}}</strong>:   {{itt.description}}<br>
     <strong>{{conff.c}}</strong>:  {{itt.development}} <br>
+     <strong>{{conff.i}}</strong>:
+    
+     <span v-for="ity in itt.photos" :key="ity">
+     
+    <span class="col-sm">
+       <a id="myImg" alt="Snow" @click="showMod(ity)"><img :src="ity" width="80" height="80"></a>&nbsp;
+    </span> 
+     </span>
+    
+    
     </td></tr></table>
   </div>
+  <!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
+  <DModalComp :title="conff.k" modalname="viewImage" :isMob="isMob" :mimage="simage" />
+  <!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
   <br>
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
 <div id="tabela"></div><div id="table"></div>
@@ -85,7 +98,7 @@ import prjII from '@/proone2.json';
 
 
 import AvalComp from '@/components/Aval.vue';
-
+import DModalComp from '@/components/DModal.vue';
 import configvar from '@/confs.json';
 
   export default {
@@ -93,7 +106,7 @@ import configvar from '@/confs.json';
    name: 'CselComp',
  //  props: { items: {} },
     components: {
-        AvalComp
+        AvalComp,DModalComp
     },
     data(){
         return {
@@ -107,6 +120,7 @@ import configvar from '@/confs.json';
             actOne:true, 
             actTwo:false,
             traCP:false,
+            simage:'',
             conff:configvar[1]
             
         }  
@@ -125,6 +139,10 @@ import configvar from '@/confs.json';
         }
     },
     methods:{
+    showMod(ima){
+        this.simage=ima;
+        document.getElementById('viewImage').style.display='block';
+    },
     googleTranslateElementInit(){
     this.traCP=!this.traCP;
     new google.translate.TranslateElement({pageLanguage: 'en'}, 'gootrael');
@@ -237,6 +255,12 @@ import configvar from '@/confs.json';
 
 <style scoped>
     @import '@/assets/spacelab.css';
+    #myImg {
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    #myImg:hover {opacity: 0.7;}
     .centerblock{
     
         width: 50%;
