@@ -3,8 +3,8 @@
  <!-- . . . . Navigation bar . . . . . . .   . . . .  -->
  <!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
 <p class="bg-dark p-1">
-<span class="text-white navbar-brand">{{conff.f}}</span><span>&nbsp;&nbsp;&nbsp;</span>
-<span class="text-white">{{conff.g}}</span><span>&nbsp;&nbsp;</span>
+<span class="text-white navbar-brand">{{slate.f}}</span><span>&nbsp;&nbsp;&nbsp;</span>
+<span class="text-white">{{slate.g}}</span><span>&nbsp;&nbsp;</span>
  <span v-if="isMob==true"><a class="dropbtnII" @click="showTra=!showTra">Translate </a>
             <div class="dropdownII-content" v-if="showTra">
             <a class="nav-link"  @click="changeOne('en')" >English</a>
@@ -33,7 +33,7 @@
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
 <!-- . . . .Show Message Component. . . . . .  . . . --> 
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
-<AvalComp :msg="conff.d" :lnk="conff.e" :per="conff.h" />
+<AvalComp :msg="slate.d" :lnk="slate.e" :per="slate.h" />
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
 <!-- . . . Navigation Element - Left Right. . . .  . -->
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
@@ -55,19 +55,20 @@
   <div v-if="isActive" class="container d-flex col-md-8">
   <table border="1" class="table-primary"><tr><td>
   <span class="d-flex justify-content-start" border="1"><strong>#{{itt.idd}}</strong></span>
-    <strong>{{conff.a}}</strong>:  {{itt.name}}<br>
-   <strong>{{conff.b}}</strong>:   {{itt.description}}<br>
-    <strong>{{conff.c}}</strong>:  {{itt.development}} <br>
+    <strong>{{slate.a}}</strong>:  {{itt.name}}<br>
+   <strong>{{slate.b}}</strong>:   {{itt.description}}<br>
+    <strong>{{slate.c}}</strong>:  {{itt.development}} <br>
      <span v-if="itt.photos!='nullable'">
-        <strong>{{conff.i}}</strong>:
-        <span v-for="ity in itt.photos" :key="ity">
+        <strong>{{slate.i}}</strong>:
+        <span v-for="ity in itt.photos" :key="ity.kk">
         <span class="col-sm"><!-- . .Images List.  -->
-        <a id="myImg" alt="Snow" @click="showMod(ity)">
-        <img :src="ity" width="80" height="80"></a>&nbsp;
+        <a id="myImg" alt="Snow" @click="showMod(ity.vv)">
+        <img :src="ity.vv" width="80" height="80"></a>&nbsp;
         </span> </span><br>
     </span>
        <span v-if="itt.link!='nullable'">
-          <strong>{{conff.j}}</strong>: {{itt.link}}
+          <strong>{{slate.j}}</strong>:
+          <a :href="itt.link" target="_blank"><button class='btn btn-sm btn-outline-primary mt-2'>{{slate.m}}</button></a>
        </span>
     
     
@@ -76,19 +77,24 @@
   <!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
   <!-- . show picture modal. . . . . . . . . . . . . . -->
   <!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
-  <DModalComp :title="conff.k" modalname="viewImage" :isMob="isMob" :mimage="simage" />
+  <DModalComp :title="slate.k" modalname="viewImage" :isMob="isMob" :mimage="simage" />
   <!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
   <br>
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->  
 <!-- . . .Table - All content. . . . .  . . . . . .  -->
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
 <div id="tabela"></div><div id="table"></div>
- <TableComp :conf="conff" :realpro="realPro" />
+ <TableComp :lang="slate" :realpro="realPro" /><br>
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
 </div>  
 </div> 
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->   
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
+<!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
+<!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
+<!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
+<!-- . .Rodapé  Footer Component . . . . .  . . . .  --> 
+<br><br>
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
@@ -125,7 +131,7 @@ import configvar from '@/confs.json';
             actTwo:false,
             traCP:false,
             simage:'',
-            conff:configvar[1]
+            slate:configvar[1]
             
         }  
     },
@@ -225,7 +231,7 @@ import configvar from '@/confs.json';
             this.showTra=!this.showTra;
             this.proActive=2;
             this.moveItt('left');
-            this.conff=configvar[0];
+            this.slate=configvar[0];
              //console.log("En.......");
                 
         }
@@ -233,7 +239,7 @@ import configvar from '@/confs.json';
             this.showTra=!this.showTra;
             this.proActive=1;
             this.moveItt('left');
-            this.conff=configvar[1];
+            this.slate=configvar[1];
         }
        
     }
