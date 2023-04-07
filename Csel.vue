@@ -1,12 +1,14 @@
 <template>
  <!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
+ <!-- . . . . Navigation bar . . . . . . .   . . . .  -->
+ <!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
 <p class="bg-dark p-1">
 <span class="text-white navbar-brand">{{conff.f}}</span><span>&nbsp;&nbsp;&nbsp;</span>
 <span class="text-white">{{conff.g}}</span><span>&nbsp;&nbsp;</span>
  <span v-if="isMob==true"><a class="dropbtnII" @click="showTra=!showTra">Translate </a>
             <div class="dropdownII-content" v-if="showTra">
             <a class="nav-link"  @click="changeOne('en')" >English</a>
-            <a class="nav-link" @click="googleTranslateElementInit()">Other Idioms</a>
+            <a class="nav-link" @click="googleTranslateElementInit()">Other languages</a>
             <a class="nav-link"  @click="changeOne('br')">Show Original</a>
             </div>
   </span>   
@@ -14,22 +16,26 @@
             <a class="dropbtnIII">Translate</a>
             <div class="dropdownIII-content">
             <a @click="changeOne('en')">English</a>
-            <a @click="googleTranslateElementInit()">Other Idioms</a>
+            <a @click="googleTranslateElementInit()">Other languages</a>
             <a  @click="changeOne('br')">Show Original</a>
             </div>
           
         </span> 
 </p>
-
-<!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
+<!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
+<!-- . . . . Google Translate element . . . . . . . .--> 
+<!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
  <span v-if="traCP"><div id="gootrael"></div></span>
-
+<!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
+<!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
 <div class="container-fluid  mt-4">  
 <div class="container bg-white col-md-12 ">
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
-
+<!-- . . . .Show Message Component. . . . . .  . . . --> 
+<!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
 <AvalComp :msg="conff.d" :lnk="conff.e" :per="conff.h" />
-
+<!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
+<!-- . . . Navigation Element - Left Right. . . .  . -->
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
  <div class="container d-flex justify-content-center">
   <table border="0" class="table-primary"><tr><td> <button class="btn sideblock" @click="moveItt('left')">&#8882;</button></td>
@@ -43,6 +49,8 @@
 </div> 
    
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->   
+<!-- . .Show content after onclick button  . . . .  -->
+<!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
   <br>
   <div v-if="isActive" class="container d-flex col-md-8">
   <table border="1" class="table-primary"><tr><td>
@@ -50,22 +58,29 @@
     <strong>{{conff.a}}</strong>:  {{itt.name}}<br>
    <strong>{{conff.b}}</strong>:   {{itt.description}}<br>
     <strong>{{conff.c}}</strong>:  {{itt.development}} <br>
-     <strong>{{conff.i}}</strong>:
-    
-     <span v-for="ity in itt.photos" :key="ity">
-     
-    <span class="col-sm">
-       <a id="myImg" alt="Snow" @click="showMod(ity)"><img :src="ity" width="80" height="80"></a>&nbsp;
-    </span> 
-     </span>
+     <span v-if="itt.photos!='nullable'">
+        <strong>{{conff.i}}</strong>:
+        <span v-for="ity in itt.photos" :key="ity">
+        <span class="col-sm"><!-- . .Images List.  -->
+        <a id="myImg" alt="Snow" @click="showMod(ity)">
+        <img :src="ity" width="80" height="80"></a>&nbsp;
+        </span> </span><br>
+    </span>
+       <span v-if="itt.link!='nullable'">
+          <strong>{{conff.j}}</strong>: {{itt.link}}
+       </span>
     
     
     </td></tr></table>
   </div>
+  <!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
+  <!-- . show picture modal. . . . . . . . . . . . . . -->
   <!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
   <DModalComp :title="conff.k" modalname="viewImage" :isMob="isMob" :mimage="simage" />
   <!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
   <br>
+<!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->  
+<!-- . . .Table - All content. . . . .  . . . . . .  -->
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
 <div id="tabela"></div><div id="table"></div>
   <div class="container col-md-9">
@@ -87,8 +102,11 @@
  
 </div>  
 </div> 
-  
-  
+<!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->   
+<!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
+<!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
+<!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
+<!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
 </template>
 <script>
  /* eslint-disable */
