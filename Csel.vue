@@ -83,23 +83,8 @@
 <!-- . . .Table - All content. . . . .  . . . . . .  -->
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->
 <div id="tabela"></div><div id="table"></div>
-  <div class="container col-md-9">
-  <table class="table-primary" border="1">
-  <thead>
-  <tr>
-      <th scope="col">{{conff.a}}</th>
-      <th scope="col">{{conff.b}}</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr v-for="mytt in realPro" :key="mytt.idd">
-    <td>{{ mytt.name }}</td>
-    <td>{{ mytt.description }}</td>
-   </tr>
-   </tbody>
-  </table>
-  </div>
- 
+ <TableComp :conf="conff" :realpro="realPro" />
+<!-- . . . . . . . . . . . . . . . . . . .  . . . .  --> 
 </div>  
 </div> 
 <!-- . . . . . . . . . . . . . . . . . . .  . . . .  -->   
@@ -117,6 +102,7 @@ import prjII from '@/proone2.json';
 
 import AvalComp from '@/components/Aval.vue';
 import DModalComp from '@/components/DModal.vue';
+import TableComp from '@/components/Table.vue';
 import configvar from '@/confs.json';
 
   export default {
@@ -124,7 +110,7 @@ import configvar from '@/confs.json';
    name: 'CselComp',
  //  props: { items: {} },
     components: {
-        AvalComp,DModalComp
+        AvalComp,DModalComp,TableComp
     },
     data(){
         return {
