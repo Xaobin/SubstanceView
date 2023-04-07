@@ -8,8 +8,8 @@
         <span @click="vvvNoShow()" class="yclose">&times;</span>
         <h5 class="modal-title" :id="modalname">{{title}}</h5>
         <hr>
-      <span v-show="isMob==true"><img :src="mimage" width="300" height="300"></span>
-      <span v-show="isMob==false"><img :src="mimage" width="600" height="600"></span>
+      <span v-show="((isMob==true)||(isMob=='true'))"><img :src="mimage" width="300" height="300"></span>
+      <span v-show="((isMob==false)||(isMob=='false'))"><img :src="mimage" width="600" height="600"></span>
        <slot name="alerts"></slot>  
         <div id="conntt" @click="mousein='true'">
             <slot name="content"></slot>
@@ -36,7 +36,7 @@ export default {
      title: String,
      modalname:String,
      mimage:String,
-     isMob:Boolean
+     isMob:[Boolean, String]
    }, 
      data() {
             return {
