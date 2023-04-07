@@ -1,133 +1,82 @@
 <template>
-<div>
-<!-- The Modal -->
-<div :id="modalname" class="ymodal" v-on:click="vvvNoMouse()">
-  <div class="ymodal-content" @mouseover="mousein='true'"
-    @mouseout="mousein='false'">
-    <div class="container">
-        <span @click="vvvNoShow()" class="yclose">&times;</span>
-        <h5 class="modal-title" :id="modalname">{{title}}</h5>
-        <hr>
-      <span v-show="((isMob==true)||(isMob=='true'))"><img :src="mimage" width="300" height="300"></span>
-      <span v-show="((isMob==false)||(isMob=='false'))"><img :src="mimage" width="600" height="600"></span>
-       <slot name="alerts"></slot>  
-        <div id="conntt" @click="mousein='true'">
-            <slot name="content"></slot>
-        </div> 
-    </div>
-        <button class="btn btn-secondary" @click="vvvNoShow()">Close</button>
-        <slot name="footer"></slot>
+<div class="container col-md-9">
+   <small class="mt-3 float-none"> {{lang.l}}</small><hr>
+  <table class="ytable ybordered text-black" border="0">
+  <thead>
+  <tr>
+      <th scope="col">{{lang.a}}</th>
+      <th scope="col">{{lang.b}}</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr v-for="mytt in realpro" :key="mytt.idd">
+    <td>{{ mytt.name }}</td>
+    <td>{{ mytt.description }}<br>
+    <strong>{{lang.c}}</strong>:  {{mytt.development}} <br>
+     <span v-if="mytt.photos!='nullable'">
+        <strong class="mt-1">{{lang.i}}</strong>:
+        <span v-for="ity in mytt.photos" :key="ity.kk">
+        <span class="col-sm"><!-- . .Images List.  -->
+        <a id="myImg" class="abluelink"  @click="showMod(ity.vv)">{{lang.n}}{{ity.kk}}
+        </a>&nbsp;
+        </span> </span><br>
+    </span>
+       <span v-if="mytt.link!='nullable'">
+          <strong>{{lang.j}}</strong>:
+           <a :href="mytt.link" target="_blank"><button class='btn btn-sm btn-outline-primary mt-1'>{{lang.m}}</button></a>
+       </span>
+    </td>
+   </tr>
+   </tbody>
+  </table>
+  <DModalComp :title="lang.k" modalname="viewImageB" isMob='false' :mimage="simage" />
   </div>
-</div>
-
-
-
-
-
-   
-</div>
 </template>
+ 
 <script>
-
-export default {
 /* eslint-disable */
-    name:'DModalComp',
-     props: {
-     title: String,
-     modalname:String,
-     mimage:String,
-     isMob:[Boolean, String]
-   }, 
-     data() {
-            return {
-                mousein:'true', 
-                mousecon:'true'
-        }},
-     methods:{
-         vvvNoShow(){
-            let name=this.modalname;
-            document.getElementById(name).style.display='none';
+import DModalComp from '@/components/DModal.vue';
+  export default {
+      data(){
+        return {
+            simage:''
+           } },
             
-        },
-        vvvNoMouse(){
-            if ((this.mousein=='false')){
-               this.vvvNoShow();
-            }
-        },
-        
-     }
+   props: {
+     realpro: {},
+     lang:{}
+   }, 
+   name: 'TableComp',
+   components: {
+    DModalComp
+  },
     
-}    
+methods:{
+    showMod(ima){
+        this.simage=ima;
+        document.getElementById('viewImageB').style.display='block';
+    },
+  },
+  mounted(){
+     
+  }
+
+}
 
 </script>
 <style scoped>
-.ymodal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
-}
+.ytable,.ytable-all{border-collapse:collapse;border-spacing:0;width:100%;display:table}.ytable-all{border:1px solid #ccc}
+.ybordered tr,.ytable-all tr{border-bottom:1px solid #c1c1c1}.ystriped tbody tr:nth-child(even){background-color:#f1f1f1}
+.ytable-all tr:nth-child(odd){background-color:#fff}.ytable-all tr:nth-child(even){background-color:#f1f1f1}
+.yhoverable tbody tr:hover,.yul.yhoverable li:hover{background-color:#ccc}.ycentered tr th,.ycentered tr td{text-align:center}
+.ytable td,.ytable th,.ytable-all td,.ytable-all th{padding:8px 8px;display:table-cell;text-align:left;vertical-align:top}
+.ytable th:first-child,.ytable td:first-child,.ytable-all th:first-child,.ytable-all td:first-child{padding-left:16px}
 
-/* Modal Content (Image) */
-.ymodal-content {
-  margin: auto;
-  display: block;
-  width: 80%;
-  max-width: 700px;
-}
-
-/* Caption of Modal Image (Image Text) - Same Width as the Image */
-#ycaption {
-  margin: auto;
-  display: block;
-  width: 80%;
-  max-width: 700px;
-  text-align: center;
-  color: #ccc;
-  padding: 10px 0;
-  height: 150px;
-}
-
-/* Add Animation - Zoom in the Modal */
-.ymodal-content, #caption {
-  animation-name: zoom;
-  animation-duration: 0.6s;
-}
-
-@keyframes zoom {
-  from {transform:scale(0)}
-  to {transform:scale(1)}
-}
-
-/* The Close Button */
-.yclose {
-  position: absolute;
-  top: 15px;
-  right: 35px;
-  color: #f1f1f1;
-  font-size: 40px;
-  font-weight: bold;
-  transition: 0.3s;
-}
-
-.yclose:hover,
-.yclose:focus {
-  color: #bbb;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-/* 100% Image Width on Smaller Screens */
-@media only screen and (max-width: 700px){
-  .ymodal-content {
-    width: 100%;
-  }
-}
+.abluelink{color:#349bef; text-decoration:underline;}
+ #myImg {
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    #myImg:hover {opacity: 0.7;}
 </style>
