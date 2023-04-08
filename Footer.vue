@@ -8,82 +8,41 @@
         <div class="container p-4">
           <!-- Section: Social media -->
           <section class="mb-4">
-            <!-- Facebook -->
-            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-              ><i class="fab fa-facebook-f"></i
-            ></a>
+          
+<a href="https://pt.gravatar.com/" target="_blank" role="button">
+<span class="badge gtar fdone m-1">&nbsp;</span></a>
 
-            <!-- Twitter -->
-            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-              ><i class="fab fa-twitter"></i
-            ></a>
+<a href="https://github.com/Xaobin" target="_blank" role="button">
+<span class="badge ghub fdone m-1">&nbsp;</span></a>
 
-            <!-- Google -->
-            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-              ><i class="fab fa-google"></i
-            ></a>
+<a href="https://www.linkedin.com" target="_blank" role="button">
+<span class="badge ldin fdone m-1">&nbsp;</span></a>
 
-            <!-- Instagram -->
-            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+            
+            <!-- a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
               ><i class="fab fa-instagram"></i
             ></a>
 
-            <!-- Linkedin -->
+         
             <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
               ><i class="fab fa-linkedin-in"></i
             ></a>
 
-            <!-- Github -->
+           
             <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
               ><i class="fab fa-github"></i
-            ></a>
+            ></a -->
           </section>
-          <!-- Section: Social media -->
+          
 
-          <!-- Section: Form -->
-          <section class="">
-            <form action="">
-              <!--Grid row-->
-              <div class="row d-flex justify-content-center">
-                <!--Grid column-->
-                <div class="col-auto">
-                  <p class="pt-2">
-                    <strong>Sign up for our newsletter</strong>
-                  </p>
-                </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
-                <div class="col-md-5 col-12">
-                  <!-- Email input -->
-                  <div class="form-outline form-white mb-4">
-                    <input type="email" id="form5Example24" class="form-control" />
-                    <label class="form-label" for="form5Example24">Email address</label>
-                  </div>
-                </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
-                <div class="col-auto">
-                  <!-- Submit button -->
-                  <button type="submit" class="btn btn-outline-light mb-4">
-                    Subscribe
-                  </button>
-                </div>
-                <!--Grid column-->
-              </div>
-              <!--Grid row-->
-            </form>
-          </section>
-          <!-- Section: Form -->
+          
 
           <!-- Section: Text -->
           <section class="mb-4">
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
-              repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam eum
-              harum corrupti dicta, aliquam sequi voluptate quas.
+             Paulatim deambulando, longum conficitur ite.
             </p>
+            <input type="hidden" id="Yahweh" value="TWV1IERldXMgw6kgWUFIIChFbGlhaHUpLCBzdWEgdml0w7NyaWEgKE5ldHphY2gpIGF0aXZhIG8gdmXDrWN1bG8gZGUgYXNjZW7Dp8OjbyAoTWVya2FiYWgp">
           </section>
           <!-- Section: Text -->
 
@@ -202,5 +161,21 @@
 
 </script>
 <style scoped>
+.fdone{
+background-color:#333333;
+height:24px;
+width:24px;
+   background-repeat: no-repeat;
 
+  background-size: contain;
+}
+.gtar{
+background-image: url('@/assets/gtar1.png'); 
+}
+.ldin{
+background-image: url('@/assets/ldin1.png'); 
+}
+.ghub{
+background-image: url('@/assets/ghub1.webp'); 
+}
 </style>
